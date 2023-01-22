@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style type="text/css">
+        .note{
+            border: 1px solid;
+            min-height:200px;
+        }
+    </style>
+    <script>
+        let $ = function(cssSelector, message){
+            let htmlElement = this.document.querySelectorAll(cssSelector);
+            if(message){
+            htmlElement.forEach(e=>{e.innerHTML += message + '<br>'});
+        }
+            if(cssSelector.startsWith('#')) return htmlElement[0];
+            return htmlElement;
+    }
+
+    // props : 객체, prop, style, text라는 속성을 가지는 객체
+    //         prop : 요소 객체의 속성을 name, value를 담은 객체
+    //         style : 요소 객체의 style 속서엥 들어갈 name, value를 담은 객체
+    //         text : 요소 객체의 textNode에 들어갈 문자열
+    let createElement=(tag, props)=>{
+
+        let res = document.createElement(tag);
+
+        // forin 문은 요소 객체의 속성만큼 반복
+        for(key in props.prop){
+            // 동적으로 추가하는 것
+            res[key]= props.prop[key];
+        }
+
+        for(key in props.style){
+            res.style[key]=props.style[key]
+        }
+
+        if(props.text){
+            let textNode = document.createTextNode(props.text);
+            res.appendChild(textNode); 
+        }
+
+        return res;
+    }
+         
+    </script>
+</head>
+<body>
+    <h1>DOM</h1>
+    <h2>텍스트 노드가 있는 node를 생성해보자</h2>
+    <div class="note" id="nodeNote"></div>
+    <script>
+        $('#nodeNote').addEventListener('click', ev=>{
+
+            //createElement(tagName) : 해당 태그 요소를 생성할 수 있다. 
+            // let title = document.createElement('h3');
+            // let subTitle = document.createElement('h4')
+
+            //textnode 생성
+            // let titText = document.createTextNode('Hi I am Porori');
+            // let subText = document.createTextNode('nice to me you');
+            // 
+            // title.appendChild(titText);
+            // subTitle.appendChild(subText);
+
+            let title = createElement('h3',{text : 'Hi I am Porori!'});
+            let subTitle = createElement('h4',{text : 'nice to me you!'});
+            
+            // innetHtml, innerText 확인하면 됌 
+            console.dir(title);
+            console.dir(subTitle);
+
+            nodeNote.appendChild(title);
+            nodeNote.appendChild(subTitle);
+        })
+    </script>
+
+    <h2>텍스트 노드가 없는 노드 생성</h2>
+    <div class="note" id="nodeNote2"></div>
+    <script>
+        $('#nodeNote2').addEventListener('click', ex =>{
+
+            // createElement () 괄호 안에 만들고 싶은거 넣으면 됨
+            // let img = document.createElement('img')
+            // 
+            // img.src='./resource/image/IU.jpg'
+            // img.style.width='150px';
+            // img.style.height='75px';
+            // 
+            //src 주소 확인하면 됨 
+            // console.dir(img);
+
+            let img = createElement('img',{prop:{src:'./resource/image/IU.jpg'},style:{width: '150px', height:'75px'}});
+            nodeNote2.appendChild(img);
+
+        })
+    </script>
+
+    <h2>노드 삭제</h2>
+    <div class="note nodeNote3" id="nodeNote3"></div>
+    <button id="btnAdd">노드 추가</button>
+    <button id="btnDel">노드 삭제</button>
+
+    <script>
+        $('#btnAdd').addEventListener('click', ev=>{
+            let img = createElement('img',{prop:{src:'./resource/image/IU.jpg'},style:{width: '150px', height:'75px'}});
+            nodeNote3.appendChild(img);
+        })
+
+        // 전체삭제
+        // $('#btnDel').addEventListener('click', ev=>{
+        //    $('.nodeNote3>*').forEach(e=>{
+            // e.remove();
+        //    })
+          
+            // })
+
+        // 하나씩 삭제
+        $('#btnDel').addEventListener('click', ev=>{
+          $('#nodeNote3>img:last-child').remove();
+            })
+            
+    </script>
+
+
+    
+</body>
+</html>

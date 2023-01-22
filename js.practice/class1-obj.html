@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // class= 청사진과 같다. 틀만 잡아두고 데이터가 담겨져 있지는 않다. ex> 붕어빵 틀
+        // obj = class에서 데이터를 담아서 만들면 그것이 obj 
+        // ex> 팥 데이터를 넣음 = 팥붕어빵 , 크림 데이터를 넣음 = 크림붕어빵
+
+        class Student {
+            // 나중에 obj에 담을 데이터를 선언하는 것 =constructor
+            constructor(name, grade, age){
+                this.name =name;
+                this.grade=grade;
+                this.age=age;
+
+            }
+            // 메서드는 행동을 하는 아이야. 말하다.걷다.듣다. 등등
+            speak(){
+                console.dir(`${this.name} : hello!!`);
+            }
+        }
+
+        // obj 생성
+        const sb = new Student('sb','2학년',21);
+        console.dir(sb.name);
+        console.dir(sb.grade);
+        console.dir(sb.age);
+        sb.speak();
+
+        // 이해를 해보자
+        // obj는 class를 실행하는 함수야.
+        // 변수 선언을 할 때, 클래스를 실행하는 obj로 만드는 거지 (new를써서 new +class명)
+        // 그리고 불러와. class 내의 constructor 안에 있는 데이터를 
+        // obj변수명.속성명  console.dir(sb.name);
+        // 혹은 메서드를 불러올 땐, obj변수명.메서드명  sb.speak
+
+        // getter & setter
+        class User {
+            constructor(firstName, lastName, age){
+                this.firstName=firstName;
+                this.lastName=lastName;
+                this.age= age;
+
+            }
+            // gettet, setter 안의 age값을 조금 다르게 설정한 이유:
+            // setter에서 계속 부르며, call stack이 가득 차기 때문에 다르게 설정함
+            // getter,setter를 이용하기 때문에 안의 값이 _age로 달라도 사용가능함
+            get age(){
+                return this._age;
+            }
+
+            set age(value){
+                // if를 만들어 에러 띄우기
+                // if(value<0){
+                //    throw Error('age can not be negative')
+                // }
+                // this._age=value; 
+
+                //  혹은 
+                this._age= value <0 ? 'No, not negetive' : value;
+                
+                
+            }
+        }
+
+        const user1 = new User('s','b','5');
+        console.dir(user1.age);
+
+        // 그냥 쓰면 public, 앞에 #을 붙이면 private 변수선언 가능 
+        // public은 그냥 호출 가능, private는 호출 불가능
+        class Expriment {
+            publicField=2;
+            #privateFied=3;
+        }
+
+        const res= new Expriment();
+        console.dir(res.publicField);
+        console.dir(res.privateField) ; // undefined나옴 
+
+        // function에서의 key = value 면 key : value 를 쓸 때 하나만 써도 된다.
+        function makePerson(name, age){
+            return{
+                // name : name,
+                // age : age,
+                // 이렇게 쓸 수도 있지만
+               name, age 
+                // 이렇게 써도 됨 = 생략가능
+            };
+        }
+
+        const person1 = {name : 'john', age : 20}
+        const person2 = {name : 'ann', age : 22}
+        const person3= makePerson('celina',25);
+        console.dir(person3);
+            
+    </script>
+    
+</body>
+</html>

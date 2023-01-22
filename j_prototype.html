@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style type="text/css">
+        .note{
+            border: 1px solid;
+            min-height:300px;
+        }
+    </style>
+    <script>
+        let $ = function(cssSelect, message){
+            let htmlElement = document.querySelectorAll(cssSelect);
+
+            if(message){
+            htmlElement.forEach(e=>{e.innerHTML += message + '<br>'});
+        }
+
+        if(htmlElement.length==1) return htmlElement[0];
+        return htmlElement;
+    }
+          
+    </script>
+</head>
+<body>
+    <h1>프로토타입 객체</h1>
+    <pre>
+        함수가 생성되는 시점에 함께 생성되는 객체를 프로토타입 객체라고 한다.
+        함수객체의 prototype 속성에 함께 생성된 프로토타입 객체를 참조하고 있다. 
+        프로토타입 객체는, constructor 속성을 가지고 있는 객체로, constructor 속성에는 자신과 함께 생성된 함수를 참조하고 있다.
+    
+        생성자 함수로 생성된 모든 객체는, 자신의 prototype 속성으로 생성자 함수의 프로토타입객체를 가지게 된다.
+        모든 객체는, 프로토타입 객체가 가지고 있는 속성을 자신의 것처럼 사용할 수 있다.
+        또한, 프로토타입 객체도 자바스크립트의 객체이기 때문에, 속성을 동적으로 추가할 수 있다. 
+
+        prototype 속성의 연결을 proto chain 이라고 부른다.
+        (객체의 프로토타입 객체의 프로타타입 객체의 프로타입 객체)
+        자바스크립트의 객체는, proto chain을 통해 연결된 모든 prototype 객체들의 메서드나 속성을 자신의 속성처럼 사용할 수 있다. 
+    
+    
+    </pre>
+
+    <div id="protoTypeNote" class="note"></div>
+    <script>
+        function Student(academy, name, kor, eng, math){
+
+          this.academy= academy;
+          this.name=name;
+          this.kor=kor;
+          this.eng=eng;
+          this.math=math;
+
+        this.getTotalScore=function(){
+        return this.kor + this.eng + this.math;
+       }
+
+         // object 객체의 toString 메서드를 오버라이드
+        this.toString = function(){
+        return `academy : ${this.academy}, name : ${name}, 총점 : ${this.getTotalScore()}`
+        }
+        
+        }
+        console.dir(Student);
+
+        // 아래의 세 인스턴스는 모두, 프로토타입 속성으로 Student의 프로토타입 객체를 참조하고 있다. 
+        let sb = new Student('mc','신비',100,100,100);
+        let ssy = new Student('mc','신상엽',100,100,100);
+        let jgw = new Student('mc','정구원',100,100,100);
+
+        console.dir(sb);
+        console.dir(ssy);
+        console.dir(jgw);
+
+        $('#protoTypeNote', sb);
+        $('#protoTypeNote', ssy);
+        $('#protoTypeNote', jgw);
+
+        $('#protoTypeNote', '---------- 모든 Student의 인스턴스에게 nation 속성을 추가 ----------');
+        sb.__proto__.nation ='kor';
+        let ann = new Student('mc','ann',100,100,100);
+        ann.nation = 'america';
+
+        sb.__proto__.nation = 'South Korea';   
+
+       let Students =[sb, ssy, jgw, ann];
+       Students.forEach(e=>{
+        for(key in e){
+            $('#protoTypeNote', `${e.name}[${key}] : ${e[key]}`);
+        }
+        $('#protoTypeNote', `-------------------------------------`);
+       })
+
+       let university = {
+        university :'한국대학교'
+    
+       }
+
+       sb.__proto__=university;
+       ssy.__proto__=university;
+       jgw.__proto__=university;
+
+       $('#protoTypeNote', `--------------프로토타입 변경-----------------------`);
+
+       Students.forEach(e => {
+            for(key in e){
+                $('#protoTypeNote', `${e.name}[${key}] :  ${e[key]}`);
+            }
+
+            $('#protoTypeNote', `--------------------------------`);
+        })
+
+        console.dir(hmd);
+        console.dir(sb);
+        console.dir(hhj);
+    </script>
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+    
+</body>
+</html>

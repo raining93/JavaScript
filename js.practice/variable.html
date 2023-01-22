@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let globalName = 'raining';
+      {
+        let name='sb';
+      // 일단 name을 할당
+      console.dir(name);
+      // name을 다시 할당
+      name ='sbb';
+      console.dir(name);
+      console.dir(globalName);
+    
+    }
+      // block scope 안의 변수를 밖에서 호출할 수 없다.
+      console.dir(name);
+      // 전역 변수는 block scope 안과 밖에 모두 호출할 수 있다.
+      // 전역 변수는 최대한 적게 사용하는 것이 좋다. 
+      console.dir(globalName);
+
+      const Num=15;
+      const Num2=17.5;
+
+      console.dir(Num);
+      console.dir(`value:${Num}, type : ${typeof Num}`);
+      console.dir(`value:${Num2}, type :${typeof Num2}`);
+
+      // bigint는 아직 지원 안됨. 일부 파이어 폭스 등에서만 사용가능
+      const bigInt = 12345678912345678912345679n;
+      console.dir(bigInt);
+      console.dir(`value:${bigInt}, type :${typeof BigInt}`);
+
+      // 문자열 출력 , 문자열 합쳐서 출력하기
+      const tree = 'hello i am tree';
+      const sun = 'i am your energy';
+      const sum = 'nice to me you ' + sun;
+
+      console.dir(`value:${tree}, type :${typeof tree}`);
+      console.dir(`value:${sun}, type :${typeof sun}`);
+      console.dir(`value:${sum}, type :${typeof sum}`);
+    
+      const gw = 'i am a chemical expert.';
+      const sb = 'Do your best.';
+      const sum2 = 'yes! ' + sb;
+
+      console.dir(`value : ${gw}`);
+      console.dir(`value : ${sum2}`);
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style type="text/css">
+        .note{
+            border: 1px solid;
+            min-height:300px;
+        }
+    </style>
+    <script>
+        let $ = function(cssSelect, message){
+            let htmlElement = document.querySelectorAll(cssSelect);
+
+            if(message){
+            htmlElement.forEach(e=>{e.innerHTML += message + '<br>'});
+        }
+
+            if(htmlElement.length==1) return htmlElement[0];
+            return htmlElement;
+    }
+         
+    </script>
+</head>
+<body>
+    <h1>encapsulation</h1>
+    <div class="note" id="encapsulationNote"></div>
+    <script>
+        function Person(name, gander){
+            // 앞에 _는 private를 뜻함
+            let _name = name;
+            let _gender = gander;
+
+            // setter/getter를 통해 _name과 _gendar에 접근할 수 있도록 작성
+            // getter : 값 불러오기, setter : return할 값 쓰기  
+            // 클로저
+
+            this.setName = function(name){
+                _name =name;
+            }
+
+
+            this.getName = function(){
+                return _name;
+            }
+
+            this.setGender = function(gender){
+                _gender =gender;
+            }
+
+
+            this.getGender = function(){
+                return _gender;
+            }
+
+              // object 객체의 toString 메서드를 오버라이드
+             this.toString = function(){
+              return `_name : ${_name} , _gender : ${_gender}`
+         }
+        
+             Object.freeze(this);
+             // freeze는 전달된 동일한 객체를 반환, 새로운 속성을 추가하거나, 이미 있는 속성을 제거하는 것이 불가능  
+         }
+         
+        // 객체의 속성 추가/ 삭제/ 수정
+        let sb = new Person();
+        sb.setName('신비');
+        sb.setGender('female');
+        console.dir(sb);
+
+        $('#encapsulationNote', sb);
+        $('#encapsulationNote', `sb.name : ${sb.name}`) ;
+        $('#encapsulationNote', `sb.gender : ${sb.gender}`) ;
+        $('#encapsulationNote', `sb.getName() : ${sb.getName()}`) ;
+        $('#encapsulationNote', `sb.getGender() : ${sb.getGender()}`) ;
+        
+    </script>
+    
+</body>
+</html>

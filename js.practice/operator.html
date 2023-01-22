@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let counter = 2;
+        const preIncrement = ++counter;
+        console.dir(`preIncrement : ${counter}, counter : ${counter}`); // 3,3
+
+        const postIncrement = counter++;
+        console.dir(`postIncrement : ${preIncrement}, counter : ${counter}`); // 3,4
+
+        const preDecrement = --counter;
+        console.dir(`preDecrement : ${preDecrement}, counter : ${counter}`); // 3,3
+
+        const postDecrement = counter--;
+        console.dir(`postDecrement : ${postDecrement}, counter : ${counter}`); // 3,2
+
+        const rain = {name : 'sb'};
+        const rain2 = {name: 'sb'};
+        const rain3 = rain;
+
+        // == : 타입이 달라도 안의 값이 같으면 true를 반환,
+        // === : 타입과 값이 모두 같아야 true를 반환
+        console.dir(rain == rain2); // false : 둘의 타입이 다름 (참조하는 레퍼런스가 다른 것임)
+        console.dir(rain === rain2); // false: 위와 동일한 이유
+        console.dir(rain === rain3); // true : rain3은 rain을 참조하기 때문에 레퍼런스가 동일 즉, 타입과 값이 모두 일치함 
+   
+         // while, do-while, for, switch 모두 java와 동일 
+
+         // Q1. literate from 0-10 and print only even numbers (use continue)
+         for(i=0; i<11; i++){
+            if(i % 2 !== 0){
+                continue;
+            }
+            console.dir(`q1 : ${i}`);
+         }
+
+         '<br>'
+
+         // Q2. literate from 0-10 and print number reaching 8
+         for(i=0; i<=10; i++){
+            if(i>8){
+                break;
+            }
+            console.dir(`q2 : ${i}`);
+        }
+   
+   
+   </script>
+    
+</body>
+</html>

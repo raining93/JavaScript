@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style type="text/css">
+        .note{
+            border: 1px solid;
+            min-height:200px;
+        }
+        </style>
+        <script src="./resource/js/common.js"></script>
+</head>
+<body>
+    <h1>localStorage, SessionStorage</h1>
+    <pre>
+        브라우저에 있는 문자형 데이터 저장공간
+        key-value 형태로 데이터를 저장
+
+        localStorage : 데이터를 영속적으로 저장
+        SessionStorage : 데이터를 브라우저의 세션동안 저장
+    </pre>
+    <div id="storageNote" class="note"></div>
+    <br>
+    <br>
+
+    <input type="text" placeholder="이름" id="username"><br>
+    <input type="number" placeholder="나이" id="userAge"><br>
+    <label>성인인증<input type="checkbox" id="checkAdult"></label>
+    <br><br>
+
+    <button id="btnSave">데이터 저장</button>
+    <button id="btnGet">데이터 확인</button>
+    <button id="btnDel">데이터 삭제</button>
+
+    <script>
+        btnSave.addEventListener('click',ev=>{
+            let userInfo ={
+                name:username.value,
+                age:userAge.valueAsNumber, // 숫자로 받기
+                isAdult:checkAdult.checked
+            }
+
+            localStorage.setItem('userInfo', JSON.stringify(userInfo));
+            sessionStorage.setItem('userInfo', JSON.stringify(userInfo));
+        })
+
+        btnGet.addEventListener('click', ev=>{
+
+
+            // 파싱을 위해 json으로 저장하는 것이 좋음
+            let dataAsSJon=localStorage.getItem('userInfo');
+            let obj = JSON.parse(dataAsSJon);
+            console.dir(typeof(dataAsSJon));
+            
+            $('#storageNote',`name: ${obj.name}, age: ${obj.age}, isAdult : ${obj.isAdult}`)
+            $('#storageNote',`name: ${typeof(obj.name)}, age: ${type(obj.age)}, isAdult : ${type(obj.isAdult)}`)
+        })
+
+        btnDel.addEventListener('click', ev=>{
+            localStorage.removeItem('userInfo')
+            sessionStorage.removeItem('userInfo')
+
+        })
+
+        
+        // localStorage.setItem('age',15);
+        // sessionStorage.setItem('isAdult', false);
+        // localStorage.setItem('age',20);
+
+        //storage 객체는 값을 문자열로 저장한다.
+        // console.dir(typeof(localStorage.getItem('age')));
+        // console.dir(typeof(sessionStorage.getItem('isAdult')));
+
+        // localStorage.clear();
+        // sessionStorage.removeItem('isAdult')
+
+    </script>
+
+    <h1>Cookie</h1>
+    <pre>
+        Cookie는 서버가 클라이언트에게 응답할 때 헤더에 저장해두는 작은 데이터 조각
+        클라이언트가 서버에 요청을 보낼 경우, 해당 서버에서 응답해더에 보냈던 Cookie를 요청헤더에 담아서 서버에게 전송
+
+        HTTP Server는 Stateless 하다.
+        즉 서버는 클라이언트의 상태를 알지 못한다.
+
+        Stateless한 특징을 극복하기 위해 Cookie를 사옹
+        서버는 클라이언트에게 응답을 할 때, 다음에 클라이언트가 요청할 경우 알아야하는 데이터를 응답 헤더에 Cookie로 담아 전송
+        클라이언트는 다음에 서버에 요청을 하게 될 때, 자동으로 이전에 서버가 보냈던 Cookie 데이터를 요청헤더에 담아서 서버로 전송하기 때문에
+        서버에서는, 클라이언트의 상태를 알고 있는 것처럼 서비스를 구현할 수 있다.  
+    </pre>
+    <div class="note" id="cookieNote"></div>
+    <script>
+        // 새로운 cookie를 추가
+        // key=value의 형태로 저장
+        // max-age : 쿠키 유효 시간 설정, 단위 s(초)
+        document.cookie='js-cookie=자바스크립트에서 추가한 쿠키.; max-age=20';
+        console.dir(document.cookie);
+        $('#cookieNote',`${document.cookie}`)
+
+
+
+
+
+    </script>
+</body>
+</html>
